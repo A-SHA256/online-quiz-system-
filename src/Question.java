@@ -1,4 +1,4 @@
-abstract class Question {
+public abstract class Question {
     private final String questionText;
     private final int correctAnswer;
 
