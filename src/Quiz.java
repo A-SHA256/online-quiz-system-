@@ -64,7 +64,7 @@ public class Quiz {
 
     List<Question> questions = new ArrayList<>(List.of(q1, q2, q3, q4, q5, q6, q7, q8, q9, q10));
 
-    public int userInput(){
+    public int userInput(Question typeOfQuestion){
         sc = new Scanner(System.in);
         while (true) {
             System.out.print("Choose the number of right answer: ");
@@ -74,9 +74,16 @@ public class Quiz {
                 continue;
             }
             int userAnswer = sc.nextInt();
-            if (userAnswer < 1 || userAnswer > 4) {
-                System.out.println("Incorrect option chosen");
-                continue;
+            if(typeOfQuestion instanceof ChoiceQuestion) {
+                if (userAnswer < 1 || userAnswer > 4) {
+                    System.out.println("Incorrect option chosen");
+                    continue;
+                }
+            } else if (typeOfQuestion instanceof TrueFalseQuestion) {
+                if (userAnswer < 1 || userAnswer > 2) {
+                    System.out.println("Incorrect option chosen");
+                    continue;
+                }
             }
             return userAnswer;
         }
@@ -86,7 +93,7 @@ public class Quiz {
         for (Question q : questions) {
             q.displayQuestion();
             System.out.println();
-            boolean userAnswer = q.checkAnswer(userInput());
+            boolean userAnswer = q.checkAnswer(userInput(q));
             if (userAnswer) {
                 score++;
             }
